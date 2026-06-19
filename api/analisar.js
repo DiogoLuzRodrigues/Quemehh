@@ -1,7 +1,8 @@
 import OpenAI from "openai";
 
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1"
 });
 
 export default async function handler(req, res) {
@@ -21,42 +22,65 @@ export default async function handler(req, res) {
         });
     }
 
-    const { nome, p1, p2, p3, p4, p5 } = req.body;
-
     try {
 
-        const resposta = await client.responses.create({
-            model: "gpt-5",
-            input: `
-Você é uma IA divertida.
+        const { nome, p1, p2, p3, p4, p5 } = req.body;
 
+        const resposta = await client.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+                {
+                    role: "system",
+                    content: `
+Você é uma IA divertida e amigável.
+
+Faça uma análise personalizada da personalidade da pessoa.
+
+Regras:
+- Responda em português do Brasil.
+- Seja positivo.
+- Use no máximo 3 parágrafos.
+- Cite alguns pontos das respostas da pessoa.
+- Chame a pessoa pelo nome.
+`
+                },
+                {
+                    role: "user",
+                    content: `
 Nome: ${nome}
 
-Respostas:
+1. O que gosta de fazer:
+${p1}
 
-1. ${p1}
-2. ${p2}
-3. ${p3}
-4. ${p4}
-5. ${p5}
+2. Lugar que sonha conhecer:
+${p2}
 
-Faça uma análise divertida, positiva e personalizada da personalidade da pessoa.
+3. O que valoriza numa amizade:
+${p3}
 
-Escreva em português do Brasil.
+4. Momento marcante:
+${p4}
+
+5. Palavra que define a pessoa:
+${p5}
 `
+                }
+            ],
+            temperature: 0.8,
+            max_tokens: 500
         });
 
         return res.status(200).json({
-            texto: resposta.output_text
+            texto: resposta.choices[0].message.content
         });
 
     } catch (erro) {
 
-        console.error(erro);
+        console.error("ERRO GROQ:", erro);
 
         return res.status(500).json({
             erro: erro.message,
-            texto: "Não foi possível analisar as respostas."
+            texto: "Não foi possível gerar a análise."
         });
     }
 }
