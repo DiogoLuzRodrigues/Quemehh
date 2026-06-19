@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="imagens/dedofeio.jpg" type="image/jpg">
+
+    <title>Curioso</title>
+
+    <link rel="stylesheet" href="css/curioso.css">
+</head>
+<body>
+
+    <div class="container">
+
+     <!--   <img src="imagens/monkey2.0.jpg" alt="Imagem Centralizada" class="imagem-central"> -->
+
+        <h1>Olá, <span id="nomeUsuario">Visitante</span>! 👋</h1>
+
+        <p>
+            Vejo que você não é uma das pessoas cadastradas...
+            Mas já que chegou até aqui, responda algumas perguntas.
+        </p>
+
+        <div id="formulario">
+
+            <div class="pergunta">
+                <p><strong>1.</strong> O que você mais gosta de fazer nas horas vagas?</p>
+                <input type="text" id="p1" required>
+            </div>
+
+            <div class="pergunta">
+                <p><strong>2.</strong> Qual lugar você sonha em conhecer?</p>
+                <input type="text" id="p2" required>
+            </div>
+
+            <div class="pergunta">
+                <p><strong>3.</strong> O que mais valoriza em uma amizade?</p>
+                <input type="text" id="p3" required>
+            </div>
+
+            <div class="pergunta">
+                <p><strong>4.</strong> Qual foi um momento marcante da sua vida?</p>
+                <input type="text" id="p4" required>
+            </div>
+
+            <div class="pergunta">
+                <p><strong>5.</strong> Se pudesse se definir em uma palavra, qual seria?</p>
+                <input type="text" id="p5" required>
+            </div>
+
+            <button onclick="finalizar()">Enviar</button>
+
+        </div>
+
+        <div id="resultado"></div>
+
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nome = params.get("nome");
+
+        if (nome) {
+            document.getElementById("nomeUsuario").textContent =
+                nome.charAt(0).toUpperCase() + nome.slice(1);
+        }
+        
+        function finalizar() {
+
+
+const campos = ["p1", "p2", "p3", "p4", "p5"];
+
+for (let campo of campos) {
+    if (document.getElementById(campo).value.trim() === "") {
+        alert("Por favor, responda todas as perguntas antes de continuar.");
+        document.getElementById(campo).focus();
+        return;
+    }
+}
+
+const params = new URLSearchParams(window.location.search);
+const nome = params.get("nome") || "Visitante";
+
+document.getElementById("formulario").style.display = "none";
+
+document.getElementById("resultado").innerHTML = `
+    <h2>🔍 Resultado da investigação</h2>
+
+    <p>
+        Depois de uma análise extremamente avançada, chegamos a uma conclusão...
+    </p>
+
+    <p>
+        <strong>${nome.charAt(0).toUpperCase() + nome.slice(1)}</strong>,
+        você é uma pessoa única, cheia de histórias,
+        sonhos e experiências próprias.
+    </p>
+
+    <p>
+        Seu nome pode até não estar cadastrado no sistema,
+        mas sua personalidade certamente merece ser lembrada.
+    </p>
+
+    <p>
+        Obrigado por participar da investigação! 😄
+    </p>
+`;
+
+}
+
+      
+    </script>
+
+</body>
+</html>

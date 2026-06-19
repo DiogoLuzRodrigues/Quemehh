@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="imagens/icone-question.png" type="solidario">
+
+    <title>Quem é?</title>
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">
+            <span>Q</span>
+            <span>u</span>
+            <span>e</span>
+            <span>m</span>
+            <span>&nbsp;</span>
+            <span>é</span>
+            <span>?</span>
+        </h1>
+
+        <input type="text" id="nome" placeholder="Digite seu nome">
+
+        <br><br>
+
+        <button onclick="verificarNome()">Entrar</button>
+    </div>
+
+   <script>
+    function verificarNome() 
+     {
+        const nome = document.getElementById("nome").value.trim().toLowerCase();
+
+        if (nome === "alice")
+        {
+            window.location.href = "alice.html";
+        }
+        else if (nome === "thomas")
+        {
+            window.location.href = "thomas.html";
+        }
+        else
+        {
+            window.location.href = "curioso.html?nome=" + encodeURIComponent(nome);
+        }
+     }
+     document.getElementById("nome").addEventListener("keypress", function(event) { if (event.key === "Enter") { verificarNome(); } });
+    </script>
+</body>
+</html>

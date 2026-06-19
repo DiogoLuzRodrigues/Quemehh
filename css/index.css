@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 300px;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+.titulo {
+    font-size: 70px;
+    margin-bottom: 30px;
+}
+
+.titulo span {
+    display: inline-block;
+    animation: flutuar 1.5s ease-in-out infinite;
+}
+
+.titulo span:nth-child(1) {
+    color: #fff;
+    animation-delay: 0s;
+}
+
+.titulo span:nth-child(2) {
+    color: #fff;
+    animation-delay: 0.1s;
+}
+
+.titulo span:nth-child(3) {
+    color: #fff;
+    animation-delay: 0.2s;
+}
+
+.titulo span:nth-child(4) {
+    color: #fff;
+    animation-delay: 0.3s;
+}
+
+.titulo span:nth-child(6) {
+    color:#fff;
+    animation-delay: 0.4s;
+}
+
+.titulo span:nth-child(7) {
+    color:#ffff00;
+    animation-delay: 0.5s;
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}

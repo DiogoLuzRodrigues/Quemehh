@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url("../imagens/fotnite.jfif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+.mensagem-fortnite {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 25px;
+    border: 2px solid white;
+    border-radius: 15px;
+    color: white;
+}
+
+.mensagem-fortnite legend {
+    color: #00ff88;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.mensagem-fortnite p {
+    font-size: 24px;
+    line-height: 1.8;
+    text-align: center;
+}
