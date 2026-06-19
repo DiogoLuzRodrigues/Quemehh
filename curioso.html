@@ -67,47 +67,48 @@
                 nome.charAt(0).toUpperCase() + nome.slice(1);
         }
         
-        function finalizar() {
+        async function finalizar() {
 
+    const campos = ["p1", "p2", "p3", "p4", "p5"];
 
-const campos = ["p1", "p2", "p3", "p4", "p5"];
-
-for (let campo of campos) {
-    if (document.getElementById(campo).value.trim() === "") {
-        alert("Por favor, responda todas as perguntas antes de continuar.");
-        document.getElementById(campo).focus();
-        return;
+    for (let campo of campos) {
+        if (document.getElementById(campo).value.trim() === "") {
+            alert("Por favor, responda todas as perguntas antes de continuar.");
+            return;
+        }
     }
-}
 
-const params = new URLSearchParams(window.location.search);
-const nome = params.get("nome") || "Visitante";
+    document.getElementById("resultado").innerHTML =
+        "<h2>🤖 IA analisando suas respostas...</h2>";
 
-document.getElementById("formulario").style.display = "none";
+    const resposta = await fetch(
+        "https://SEU-PROJETO.vercel.app/api/analisar",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: nome,
+                p1: document.getElementById("p1").value,
+                p2: document.getElementById("p2").value,
+                p3: document.getElementById("p3").value,
+                p4: document.getElementById("p4").value,
+                p5: document.getElementById("p5").value
+            })
+        }
+    );
 
-document.getElementById("resultado").innerHTML = `
-    <h2>🔍 Resultado da investigação</h2>
+    const dados = await resposta.json();
 
-    <p>
-        Depois de uma análise extremamente avançada, chegamos a uma conclusão...
-    </p>
+    document.getElementById("formulario").style.display = "none";
 
-    <p>
-        <strong>${nome.charAt(0).toUpperCase() + nome.slice(1)}</strong>,
-        você é uma pessoa única, cheia de histórias,
-        sonhos e experiências próprias.
-    </p>
-
-    <p>
-        Seu nome pode até não estar cadastrado no sistema,
-        mas sua personalidade certamente merece ser lembrada.
-    </p>
-
-    <p>
-        Obrigado por participar da investigação! 😄
-    </p>
-`;
-
+    document.getElementById("resultado").innerHTML = `
+        <h2>🤖 Resultado da IA</h2>
+        <div class="analise">
+            ${dados.texto.replace(/\n/g, "<br>")}
+        </div>
+    `;
 }
 
       
